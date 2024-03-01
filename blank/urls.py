@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
@@ -11,5 +11,6 @@ urlpatterns = [
     path('si', views.simple, name='simple'),
     path('simple', views.simple, name='simple'),
     path('countries', views.countries, name='countries'),
+    path('rgann/', include('rgapp.urls')),
 
 ]
