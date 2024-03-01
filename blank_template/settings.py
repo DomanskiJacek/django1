@@ -15,18 +15,16 @@ import os
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-environ.Env.read_env(os.path.join(BASE_DIR + '/w3s-dynamic-storage', '.env'))
-env = environ.Env()
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-qs2mn#+&kd52m34@=oavag!=gkmubjccbu3f4@4sv-nu#$8%8-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if env('DEBUG') == 'True' else False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
@@ -82,24 +80,11 @@ WSGI_APPLICATION = 'blank_template.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-def get_db_config(environ_var):
-    """Get Database configuration."""
-    options = env.db(
-        var=environ_var, default='sqlite:///w3s-dynamic-storage/database.db')
-    if options.get('ENGINE') != 'django.db.backends.sqlite3':
-        return options
-
-    # This will allow use a relative to the project root DB path
-    # for SQLite like 'sqlite:///db.sqlite3'
-    if not options['NAME'] == ':memory:' and not os.path.isabs(options['NAME']):
-        options.update({'NAME': os.path.join(BASE_DIR, options['NAME'])})
-
-    return options
-
-
 DATABASES = {
-    'default': get_db_config('DATABASE_URL'),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
