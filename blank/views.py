@@ -24,4 +24,5 @@ def ttt(request):
     return HttpResponse('this is ttt(request) aaa')
 
 def countries(request):
-    return render(request, 'countries.html', {'countries' : countries})
+    countries2 = ('Poland', 'Czechia', 'Slovakia')
+    return render(request, 'countries.html', {'countries' : countries2, 'strx' : 'test value of strx'})
