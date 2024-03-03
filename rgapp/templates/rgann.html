@@ -1,0 +1,84 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rgann</title>
+    {%  load static %}
+</head>
+<body>
+<p>rgann : regex version Ann</p>
+<a href="http://127.0.0.1:8000">index</a>
+<p style='font-size: smaller'>here task todo / plans
+<br/>populate form in context (is class in model required ?)
+    <br/>use class Rgann(models.Model), if success
+    <br/>order of textfields
+    <br/>info last record in db
+    <br/>default in db
+    <br/>request.method: {{ request.method }}
+</p>
+<div style="font-size: smaller; background-color: lightgrey">
+<p>this is section  empty:  for zkeys in form2.keys</p>
+</div>
+
+<form id='form1'  style="color: darkblue; background-color: lightcyan "  action="" method="post">
+    {% csrf_token %}
+    {{ form1.as_p }}
+    <input type="submit" value="OK">
+    <p>form ends here</p>
+</form>
+<button  onclick="testvala('form1')">test values</button>
+
+<p>returned from server:</p>
+<br/>stoform: {{ stoform }}
+<br/>stoform2: {{ stoform2 }}
+{#<form id="form2" style="background-color: lightsteelblue" method="post">#}
+{#{% csrf_token %}#}
+{#<p>another form</p>#}
+{#    {% for field in form %}#}
+{#        <li>{{ field.label_tag }} {{ field }}</li>#}
+{#    {% endfor %}#}
+{#</form>#}
+{#<button  onclick="testvala('form2')">test values</button>#}
+
+<button onclick="show_all_ids('id_all_ids')" >show_all_ids</button>
+<p style="background-color: cornsilk; font-size: small" id="id_all_ids">ids:? </p>
+
+
+
+<script>
+    function sample_values(){
+        document.getElementById()
+    }
+    function show_all_ids(pid){
+        var str9 = '?';
+
+
+        var elems = document.querySelectorAll('form')
+        var elemsinform;
+        for (i = 0; i < elems.length; i++) {
+            str9 = (str9 + ';' + elems[i].id);
+            elemsinform = elems[i].querySelectorAll('input')
+            for (j = 0; j < elemsinform.length; j++) {
+                str9 = (str9 + ',   ' + elemsinform[j].id.toString() + ',' + elemsinform[j].tagName)
+            }
+        }
+        {#elems.forEach(elem => {str1 += str(elem.id);})#}
+        document.getElementById(pid).innerText = str9;
+    }
+    function testvala(form_name){
+        var str9 = '?'
+        var dta = new Date()
+        {#var strdta = dta.getMinutes().toString()+dta.getSeconds().toString()#}
+        strdta = dta.getMinutes().toString()+dta.getSeconds().toString()
+        elems = document.getElementById(form_name)
+        for(i=0; i<elems.length; i++){
+            if (elems[i].type === 'text' || elems[i].type === 'textarea' ) {
+                elems[i].value = elems[i].id.toString().substring(1,10) + strdta
+                str9 = (str9 + ';' + elems[i].id + ';' + elems[i].type + ';   ')
+            }
+        }
+        {#alert(str9)#}
+    }
+</script>
+</body>
+</html>
